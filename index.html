@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Battle ships</title>
+    <script src="index.js"></script>
+    <link rel="stylesheet" type="text/css" href="index.css">
+
+</head>
+<body>
+<h1>Battleship Game</h1>
+
+<div id="numbersBoard">
+</div>
+
+<div id="lettersAndBoard">
+    <div id="letters"></div>
+    <div id="gameBoard"></div>
+</div>
+
+<form name="input" onsubmit="return false">
+    Enter coordinates (row, col), e.g. A5
+    <input id="shootInput" type="text" size="5"maxlength="2" value="test">
+    <button onclick="shot()">Shoot</button>
+</form>
+
+
+</body>
+</html>
