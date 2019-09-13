@@ -1,4 +1,4 @@
-window.onload = function main() {
+(function main() {
     const rows = 10;
     const cols = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
     const battleShip = 5;
@@ -34,38 +34,38 @@ window.onload = function main() {
             square = document.createElement("div");
             square.innerHTML = '.';
             square.id = cols[i - 1] + (j);
+            square.className = "separateSquare"
             if (i === startPointBattleShip && j === pointHorizontalBattleShip) {
-                if (pointHorizontalBattleShip !== startPointBattleShip + 5){
-                    square.setAttribute("value", `${1}`);
+                if (pointHorizontalBattleShip !== startPointBattleShip + battleShip){
+                    square.setAttribute("name", "ship");
                     pointHorizontalBattleShip++;
                 }
             }
             if (i === pointVerticalFirstDestroyer && j === startPointFirstDestroyer) {
-                if (pointVerticalFirstDestroyer !== startPointFirstDestroyer + 4) {
-                    square.setAttribute("value", `${2}`);
+                if (pointVerticalFirstDestroyer !== startPointFirstDestroyer + firstDestroyer) {
+                    square.setAttribute("name", "ship");
                     pointVerticalFirstDestroyer++;
                 }
             }
             if (i === pointVerticalSecondDestroyer && j === startPointSecondDestroyer) {
-                if (pointVerticalSecondDestroyer !== startPointSecondDestroyer + 4) {
-                    square.setAttribute("value", `${3}`);
+                if (pointVerticalSecondDestroyer !== startPointSecondDestroyer + secondDestroyer) {
+                    square.setAttribute("name", "ship");
                     pointVerticalSecondDestroyer++;
                 }
             }
             gameBoardContainer.appendChild(square);
         }
     }
-    console.log(gameBoardContainer);
-    return gameBoardContainer
+    //console.log(gameBoardContainer);
+    document.getElementById("shootInput").value = '';
 
-}
+})()
 
 function randomNumber() {
     let min = 1;
     let max = 5;
     let randomNumber = 0;
     let randNums = [];
-    let differentRanNums = [];
     for (let n = 0; n < 3; n++) {
         let rand = Math.random();
         randomNumber = Math.floor(rand * (max - min + 1)) + min;
@@ -77,13 +77,36 @@ function randomNumber() {
 
     return randNums;
 }
-
+let  countShoot = 0;
 function shot(){
-
     let coordinates = document.getElementById("shootInput");
-    console.log(coordinates.value);
+    let gameBoardContainer = document.getElementsByClassName("separateSquare");
+    let partOfShip = "ship";
+    //console.log(gameBoardContainer);
+
+    for (let separateSquare of gameBoardContainer) {
+        let ship = separateSquare.getAttribute("name");
+        let shipId = separateSquare.getAttribute("id").toString();
+        if (coordinates.value === shipId && partOfShip === ship) {
+            separateSquare.setAttribute("name", null);
+            separateSquare.innerHTML = "x";
+            console.log("OK");
+            countShoot++;
+        }else if (coordinates.value === shipId) {
+            separateSquare.innerHTML = "-";
+            countShoot++;
+        }
+    }
+
     document.getElementById("shootInput").value = '';
+    console.log(countShoot);
+
+
 }
+
+
+
+
 
 
 
