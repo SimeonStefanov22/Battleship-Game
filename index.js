@@ -52,7 +52,7 @@
             if (i === pointVerticalSecondDestroyer && j === startPointSecondDestroyer) {
                 if (pointVerticalSecondDestroyer !== startPointSecondDestroyer + secondDestroyer) {
                     square.setAttribute("name", "ship");
-                    square.setAttribute("data", "secondDestroyer")
+                    square.setAttribute("data", "secondDestroyer");
                     pointVerticalSecondDestroyer++;
                 }
             }
@@ -75,6 +75,7 @@ function randomNumber() {
         randNums.push(randomNumber)
     }
     randNums = randNums.sort((a, b) => a - b);
+    //Created different random numbers
     randNums[1]++;
     randNums[2]+= 2;
 
@@ -87,8 +88,7 @@ function shot(){
     let coordinates = document.getElementById("shootInput");
     let gameBoardContainer = document.getElementsByClassName("separateSquare");
     let partOfShip = "ship";
-    let messageAfterTheShot = document.getElementById("message");
-    //console.log(gameBoardContainer);
+    let  messageAfterTheShot = document.getElementById("message");
     for (let separateSquare of gameBoardContainer) {
         let ship = separateSquare.getAttribute("name");
         let shipId = separateSquare.getAttribute("id");
@@ -107,33 +107,48 @@ function shot(){
             messageAfterTheShot.innerHTML = "*** Miss ***";
         }
     }
-
     document.getElementById("shootInput").value = '';
-
 }
 
 function message() {
     let gameBoardContainer = document.getElementsByClassName("separateSquare");
-    let message = document.getElementById("message");
+    let messageSunk = document.getElementById("messageSunk");
+
+
     let countShips = 0;
-    let countBattleShip = 0;
+    let counterBattleShip = 0;
+    let counterFirstDestroyer = 0;
+    let counterSecondDestroyer = 0;
     for (let separateSquare of gameBoardContainer) {
         let ship = separateSquare.getAttribute("name");
         let shipName = separateSquare.getAttribute("data");
         if (shipName === "battleShip") {
-            countBattleShip++;
-            console.log(countBattleShip);
+            counterBattleShip++;
+            console.log(counterBattleShip);
         }
-        if (ship){
+        if (shipName === "firstDestroyer") {
+            counterFirstDestroyer++;
+        }
+        if (shipName === "secondDestroyer") {
+            counterSecondDestroyer++;
+        }
+        if (ship) {
             countShips++;
         }
 
     }
-    if (countBattleShip === 0){
-        message.innerHTML = "Battle ship sunk";
+    if (counterBattleShip === 0){
+
+        messageSunk.innerHTML = "*** Battle ship sunk ***";
+    }
+    if (counterFirstDestroyer === 0 ) {
+        messageSunk.innerHTML = "*** First Destroyer ship sunk ***";
+    }
+    if (counterSecondDestroyer === 0) {
+        messageSunk.innerHTML = "*** Second Destroyer ship sunk ***";
     }
     if (countShips === 0) {
-        message.innerHTML = `Well done! You completed the game in ${countShoot} shots`;
+        messageSunk.innerHTML = `Well done! You completed the game in ${countShoot} shots`;
     }
 }
 
