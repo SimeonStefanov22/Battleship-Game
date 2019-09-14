@@ -1,9 +1,18 @@
 (function main() {
     const rows = 10;
     const cols = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'];
-    const battleShip = 5;
-    const firstDestroyer = 4;
-    const secondDestroyer = 4;
+    class Ship {
+        constructor(length, state) {
+            this.length = length;
+            this.state = state;
+        }
+    }
+    const battleShip = new Ship();
+    const firstDestroyer = new Ship();
+    const secondDestroyer = new Ship();
+    battleShip.length = 5;
+    firstDestroyer.length = 4;
+    secondDestroyer.length = 4;
     let gameBoardContainer = document.getElementById("gameBoard");
     let numbersTable = document.getElementById("numbersBoard");
     let lettersTable = document.getElementById("letters");
@@ -36,21 +45,21 @@
             square.id = cols[i - 1] + (j);
             square.className = "separateSquare"
             if (i === startPointBattleShip && j === pointHorizontalBattleShip) {
-                if (pointHorizontalBattleShip !== startPointBattleShip + battleShip){
+                if (pointHorizontalBattleShip !== startPointBattleShip + battleShip.length){
                     square.setAttribute("name", "ship");
                     square.setAttribute("data", "battleShip");
                     pointHorizontalBattleShip++;
                 }
             }
             if (i === pointVerticalFirstDestroyer && j === startPointFirstDestroyer) {
-                if (pointVerticalFirstDestroyer !== startPointFirstDestroyer + firstDestroyer) {
+                if (pointVerticalFirstDestroyer !== startPointFirstDestroyer + firstDestroyer.length) {
                     square.setAttribute("name", "ship");
                     square.setAttribute("data", "firstDestroyer")
                     pointVerticalFirstDestroyer++;
                 }
             }
             if (i === pointVerticalSecondDestroyer && j === startPointSecondDestroyer) {
-                if (pointVerticalSecondDestroyer !== startPointSecondDestroyer + secondDestroyer) {
+                if (pointVerticalSecondDestroyer !== startPointSecondDestroyer + secondDestroyer.length) {
                     square.setAttribute("name", "ship");
                     square.setAttribute("data", "secondDestroyer");
                     pointVerticalSecondDestroyer++;
