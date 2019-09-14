@@ -38,18 +38,21 @@
             if (i === startPointBattleShip && j === pointHorizontalBattleShip) {
                 if (pointHorizontalBattleShip !== startPointBattleShip + battleShip){
                     square.setAttribute("name", "ship");
+                    square.setAttribute("data", "battleShip");
                     pointHorizontalBattleShip++;
                 }
             }
             if (i === pointVerticalFirstDestroyer && j === startPointFirstDestroyer) {
                 if (pointVerticalFirstDestroyer !== startPointFirstDestroyer + firstDestroyer) {
                     square.setAttribute("name", "ship");
+                    square.setAttribute("data", "firstDestroyer")
                     pointVerticalFirstDestroyer++;
                 }
             }
             if (i === pointVerticalSecondDestroyer && j === startPointSecondDestroyer) {
                 if (pointVerticalSecondDestroyer !== startPointSecondDestroyer + secondDestroyer) {
                     square.setAttribute("name", "ship");
+                    square.setAttribute("data", "secondDestroyer")
                     pointVerticalSecondDestroyer++;
                 }
             }
@@ -77,32 +80,65 @@ function randomNumber() {
 
     return randNums;
 }
+
 let  countShoot = 0;
+
 function shot(){
     let coordinates = document.getElementById("shootInput");
     let gameBoardContainer = document.getElementsByClassName("separateSquare");
     let partOfShip = "ship";
+    let messageAfterTheShot = document.getElementById("message");
     //console.log(gameBoardContainer);
-
     for (let separateSquare of gameBoardContainer) {
         let ship = separateSquare.getAttribute("name");
-        let shipId = separateSquare.getAttribute("id").toString();
-        if (coordinates.value === shipId && partOfShip === ship) {
-            separateSquare.setAttribute("name", null);
+        let shipId = separateSquare.getAttribute("id");
+        let shipName = separateSquare.getAttribute("data");
+        if (coordinates.value.toUpperCase() === shipId && partOfShip === ship) {
+            separateSquare.removeAttribute("name");
+            separateSquare.removeAttribute("id");
+            separateSquare.removeAttribute("data");
             separateSquare.innerHTML = "x";
-            console.log("OK");
             countShoot++;
-        }else if (coordinates.value === shipId) {
+            messageAfterTheShot.innerHTML = "*** Hit ***";
+            message()
+        }else if (coordinates.value.toUpperCase() === shipId) {
             separateSquare.innerHTML = "-";
             countShoot++;
+            messageAfterTheShot.innerHTML = "*** Miss ***";
         }
     }
 
     document.getElementById("shootInput").value = '';
-    console.log(countShoot);
-
 
 }
+
+function message() {
+    let gameBoardContainer = document.getElementsByClassName("separateSquare");
+    let message = document.getElementById("message");
+    let countShips = 0;
+    let countBattleShip = 0;
+    for (let separateSquare of gameBoardContainer) {
+        let ship = separateSquare.getAttribute("name");
+        let shipName = separateSquare.getAttribute("data");
+        if (shipName === "battleShip") {
+            countBattleShip++;
+            console.log(countBattleShip);
+        }
+        if (ship){
+            countShips++;
+        }
+
+    }
+    if (countBattleShip === 0){
+        message.innerHTML = "Battle ship sunk";
+    }
+    if (countShips === 0) {
+        message.innerHTML = `Well done! You completed the game in ${countShoot} shots`;
+    }
+}
+
+
+
 
 
 

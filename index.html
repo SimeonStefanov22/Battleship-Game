@@ -10,6 +10,8 @@
 <body>
 <h1>Battleship Game</h1>
 
+<p id="message"></p>
+
 <div id="numbersBoard">
 </div>
 
@@ -19,8 +21,8 @@
 </div>
 
 <form name="input" onsubmit="return false">
-    Enter coordinates (row, col), e.g. A5
-    <input id="shootInput" type="text" size="5"maxlength="2" value="test">
+    <label for="shootInput"> Enter coordinates (row, col), e.g. A5</label>
+    <input id="shootInput" type="text" size="5"maxlength="3" value="test">
     <button onclick="shot()">Shoot</button>
 </form>
 
